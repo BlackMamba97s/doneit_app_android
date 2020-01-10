@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.doneit.service.LoginService;
+import com.example.doneit.service.RegisterService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,24 +52,8 @@ public class MainActivity extends AppCompatActivity {
         final String username = usernameView.getText().toString();
         final String password = passwordView.getText().toString();
 
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    makeAuthenticationRequest(username,password);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        checkResponseFromServer();
+        LoginTask loginTask = new LoginTask(username,password);
+        loginTask.execute();
 
     }
 
@@ -74,60 +62,53 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void makeAuthenticationRequest(String username, String password) throws IOException{
-        MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        String url = SERVER_URL + AUTHENTICATE;
+    public void gotoHomeActivity(String token){
+        SharedPreferences.Editor editor = getSharedPreferences(SHARED_LOGIN, MODE_PRIVATE).edit();
+        editor.putString("token",  token);
+        editor.apply();
 
-        OkHttpClient client = new OkHttpClient();
-
-        JSONObject postdata = new JSONObject();
-        try {
-            postdata.put("username", username);
-            postdata.put("password", password);
-        } catch(JSONException e){
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        RequestBody body = RequestBody.create(MEDIA_TYPE, postdata.toString());
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .build();
-
-        Response response = client.newCall(request).execute();
-
-        if (response.isSuccessful()){
-            try {
-                jsonResponse = new JSONObject(response.body().string());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }else{
-            jsonResponse = null;
-        }
-
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
-    public void checkResponseFromServer(){
-        if(jsonResponse != null) {
-            try {
-                if (jsonResponse.get("messageCode").equals(SUCCESSFUL_LOGIN)) {
-                    SharedPreferences.Editor editor = getSharedPreferences(SHARED_LOGIN, MODE_PRIVATE).edit();
-                    editor.putString("token",  jsonResponse.get("token").toString());
-                    editor.apply();
+    public void showToast(String toastMessage){
+        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show();
+    }
 
-                    Intent intent = new Intent(this, HomeActivity.class);
-                    startActivity(intent);
-                }
-            } catch (JSONException e) {
+
+    private class LoginTask extends AsyncTask<Void, Void, JSONObject> {
+        private String username;
+        private String password;
+
+        public LoginTask(String username, String password){
+            this.username = username;
+            this.password = password;
+        }
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            LoginService loginService = new LoginService();
+            try {
+                return loginService.makeAuthenticationRequest(username,password);
+            } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
-        }else{
-            Toast.makeText(this, "CREDENZIALI ERRATE", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            if(result != null) {
+                try {
+                    if (result.get("messageCode").equals(SUCCESSFUL_LOGIN)) {
+                        gotoHomeActivity(result.get("token").toString());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    showToast("ERRORE NEL SERVER");
+                }
+            }else{
+                showToast("CREDENZIALI ERRATE");
+            }
         }
     }
 
