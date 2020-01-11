@@ -36,10 +36,16 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void handleCreateTodo(View view){
+        Intent intent = new Intent(this,CreateTodoActivity.class);
+        startActivity(intent);
+    }
 
     public void showResponse(List<Todo> response){
-        for(Todo todo : response){
-            Log.d("response",""+response);
+        if(response != null) {
+            for (Todo todo : response) {
+                Log.d("response", "" + response);
+            }
         }
 
     }
