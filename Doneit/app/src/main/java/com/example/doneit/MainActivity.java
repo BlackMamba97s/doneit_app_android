@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.doneit.service.LoginService;
 import com.example.doneit.service.RegisterService;
+import com.facebook.FacebookSdk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,22 +32,34 @@ import static com.example.doneit.constants.MessageCode.*;
 public class MainActivity extends AppCompatActivity {
 
     private JSONObject jsonResponse;
+    private TextView redirectToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_main);
          SharedPreferences preferences = getSharedPreferences(SHARED_LOGIN, MODE_PRIVATE);
          if(preferences.contains("token")){
              Intent intent = new Intent(this, HomeActivity.class);
              startActivity(intent);
          }
+        redirectToRegister = findViewById(R.id.register_redirect);
+        redirectToRegister.setClickable(true);
+        redirectToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"prova",Toast.LENGTH_LONG).show();
+                gotoRegisterActivity(v);
+            }
+        });
 
     }
 
 
     public void handleLogin(View view){
+        Toast.makeText(getApplicationContext(),"bottone login funge",Toast.LENGTH_LONG).show();
         TextView usernameView = findViewById(R.id.username);
         TextView passwordView = findViewById(R.id.password);
         final String username = usernameView.getText().toString();

@@ -2,9 +2,11 @@ package com.example.doneit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +19,21 @@ import static com.example.doneit.constants.MessageCode.*;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private TextView redirectToLogIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        redirectToLogIn = findViewById(R.id.register_redirect);
+        redirectToLogIn.setClickable(true);
+        redirectToLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"prova",Toast.LENGTH_LONG).show();
+                goToLogin(v);
+            }
+        });
     }
 
     public void handleRegister(View view){
@@ -31,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         RegisterTask registerTask = new RegisterTask(username,password);
         registerTask.execute();
     }
+
 
     public void showToast(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
@@ -70,4 +84,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
+
+    public void goToLogin(View view){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -27,7 +27,7 @@ public class CreateTodoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_todo);
     }
-
+/*
     public void handleConfirmButton(View view){
         TextView titleText = findViewById(R.id.titleText);
         TextView descriptionText = findViewById(R.id.descriptionText);
@@ -47,7 +47,7 @@ public class CreateTodoActivity extends AppCompatActivity {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
-    public class CreateTodoTask extends AsyncTask<Void,Void,JSONObject> {
+    public static class CreateTodoTask extends AsyncTask<Void,Void,JSONObject> {
 
         private String title;
         private String description;
@@ -82,5 +82,5 @@ public class CreateTodoActivity extends AppCompatActivity {
 
             }
         }
-    }
+    }*/
 }
