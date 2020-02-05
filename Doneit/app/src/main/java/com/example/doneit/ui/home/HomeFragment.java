@@ -17,11 +17,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.doneit.R;
 import com.example.doneit.adapter.TodoListAdapter;
 import com.example.doneit.model.Todo;
 import com.example.doneit.service.TodoService;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +33,49 @@ import static com.example.doneit.constants.Client.SHARED_LOGIN;
 
 public class HomeFragment extends Fragment implements TodoListAdapter.ItemClickListener {
 
-    private HomeViewModel homeViewModel;
     private TodoListAdapter todoListAdapter;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        final TextView textView = root.findViewById(R.id.text_home);
-        getTodoList();
+
+
+        //inizializzo il page viewer
+        TabLayout tabLayout = root.findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Todo"));
+        tabLayout.addTab(tabLayout.newTab().setText("Eventi"));
+        tabLayout.addTab(tabLayout.newTab().setText("Storie"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = root.findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+
+
+        //getTodoList();
         return root;
     }
 

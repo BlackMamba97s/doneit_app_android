@@ -2,7 +2,7 @@ package com.example.doneit.model;
 
 import java.util.Date;
 
-public class Todo {
+public class Event {
 
     private Long id;
     private String title;
@@ -11,11 +11,11 @@ public class Todo {
 
     private User user;
 
-    public Todo(){
+    public Event(){
 
     }
 
-    public Todo(String title, String description, Date publishedDate, Date endingDate){
+    public Event(String title, String description){
         this.title = title;
         this.description = description;
     }

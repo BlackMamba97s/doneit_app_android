@@ -1,9 +1,10 @@
 package com.example.doneit.constants;
 
 public class ServerService {
-    public static final String SERVER_URL = "http://192.168.1.10:8080";
+    public static final String SERVER_URL = "http://172.147.142:8080";
     public static final String AUTHENTICATE = "/authenticate-user";
     public static final String REGISTER_USER =  "/register-user";
     public static final String ALL_TODO_LIST = "/all-todo-list";
+    public static final String ALL_EVENT_LIST = "/all-event-list";
     public static final String CREATE_TODO = "/create-todo";
 }
