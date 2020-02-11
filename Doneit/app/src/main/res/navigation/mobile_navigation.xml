@@ -12,28 +12,28 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.doneit.ui.todolist.TodoListFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_todo_list" />
+        android:id="@+id/nav_creation"
+        android:name="com.example.doneit.ui.creation.CreationFragment"
+        android:label="Create Attività"
+        tools:layout="@layout/creation_fragment" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.doneit.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_my_todo"
+        android:name="com.example.doneit.ui.my_todos.MyTodosFragment"
+        android:label="I miei Todo"
+        tools:layout="@layout/fragment_my_todos" />
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.example.doneit.ui.tools.ToolsFragment"
+        android:name="com.example.doneit.ui.my_todos.MyTodosFragment"
         android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_my_todos" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.example.doneit.ui.share.ShareFragment"
+        android:name="com.example.doneit.ui.my_propose.MyProposeFragment"
         android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/mypropose_fragment" />
 
     <fragment
         android:id="@+id/nav_send"

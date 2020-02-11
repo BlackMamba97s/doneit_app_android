@@ -1,5 +1,7 @@
 package com.example.doneit.service;
 
+import android.util.Log;
+
 import com.example.doneit.model.Todo;
 import com.google.gson.Gson;
 
@@ -44,7 +46,8 @@ public class CreateTodoService {
 
         try {
             Response response = client.newCall(request).execute();
-            if(response.isSuccessful()){
+
+            if(response != null){
                 return new JSONObject(response.body().string());
             }else{
                 return null;

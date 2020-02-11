@@ -15,7 +15,7 @@ import static com.example.doneit.constants.ServerService.*;
 
 
 public class RegisterService {
-    public JSONObject makeRegisterRequest(String username, String password){
+    public JSONObject makeRegisterRequest(String username, String name, String surname, String email, String password){
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = SERVER_URL + REGISTER_USER;
 
@@ -25,6 +25,9 @@ public class RegisterService {
         try {
             postdata.put("username", username);
             postdata.put("password", password);
+            postdata.put("name", name);
+            postdata.put("surname", surname);
+            postdata.put("email", email);
         } catch(JSONException e){
             // TODO Auto-generated catch block
             e.printStackTrace();

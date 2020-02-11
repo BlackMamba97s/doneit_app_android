@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.doneit.ui.share.ShareFragment;
-import com.example.doneit.ui.todolist.TodoListFragment;
-import com.example.doneit.ui.todos.TodosFragment;
+import com.example.doneit.ui.event_list.EventsFragment;
+import com.example.doneit.ui.my_propose.MyProposeFragment;
+import com.example.doneit.ui.todo_list.TodosFragment;
 
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -32,10 +32,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 TodosFragment tab1 = new TodosFragment();
                 return tab1;
             case 1:
-                TodoListFragment tab2 = new TodoListFragment();
+                EventsFragment tab2 = new EventsFragment();
                 return  tab2;
             case 2:
-                ShareFragment tab3 = new ShareFragment();
+                MyProposeFragment tab3 = new MyProposeFragment();
                 return  tab3;
             default:
                 return null;

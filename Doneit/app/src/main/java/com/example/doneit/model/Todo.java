@@ -8,16 +8,19 @@ public class Todo {
     private String title;
     private String description;
     private Date publishedDate;
-
+    private Date expirationDate;
+    private Category category;
     private User user;
+    private String state ="published";
 
     public Todo(){
 
     }
 
-    public Todo(String title, String description, Date publishedDate, Date endingDate){
+    public Todo(String title, String description, Category category){
         this.title = title;
         this.description = description;
+        this.category = category;
     }
 
     public Long getId() {
@@ -44,13 +47,7 @@ public class Todo {
         this.description = description;
     }
 
-    public Date getPublishedDate() {
-        return publishedDate;
-    }
 
-    public void setPublishedDate(Date publishedDate) {
-        this.publishedDate = publishedDate;
-    }
 
     public User getUser() {
         return user;
@@ -66,8 +63,41 @@ public class Todo {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", publishedDate=" + publishedDate +
+                ", publishedDate=" +
                 ", user=" + user +
                 '}';
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date endingDate) {
+        this.expirationDate = endingDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+    public Date getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
     }
 }

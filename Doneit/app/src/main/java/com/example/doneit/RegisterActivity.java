@@ -37,11 +37,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void handleRegister(View view){
-        TextView usernameView = findViewById(R.id.username);
+        TextView emailView = findViewById(R.id.email);
+        TextView nameView = findViewById(R.id.name);
+        TextView surnameView = findViewById(R.id.surname);
         TextView passwordView = findViewById(R.id.password);
-        String username = usernameView.getText().toString();
         String password = passwordView.getText().toString();
-        RegisterTask registerTask = new RegisterTask(username,password);
+        String name = nameView.getText().toString();
+        String surname = surnameView.getText().toString();
+        String email = emailView.getText().toString();
+        String username = name + "." + surname;
+        RegisterTask registerTask = new RegisterTask(username, name, surname, email, password);
         registerTask.execute();
     }
 
@@ -53,15 +58,21 @@ public class RegisterActivity extends AppCompatActivity {
     private class RegisterTask extends AsyncTask<Void, Void, String> {
         private String username;
         private String password;
+        private String name;
+        private String surname;
+        private String email;
 
-        public RegisterTask(String username, String password){
+        public RegisterTask(String username, String name, String surname, String email, String password){
             this.username = username;
             this.password = password;
+            this.name = name;
+            this.surname = surname;
+            this.email = email;
         }
         @Override
         protected String doInBackground(Void... voids) {
             RegisterService registerService = new RegisterService();
-            JSONObject jsonResponse = registerService.makeRegisterRequest(username,password);
+            JSONObject jsonResponse = registerService.makeRegisterRequest(username, name, surname, email, password);
             if(jsonResponse != null){
                 try {
                     if(jsonResponse.get("messageCode").equals(SUCCESSFUL_REGISTER)) {

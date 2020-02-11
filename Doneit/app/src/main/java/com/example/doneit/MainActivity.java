@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject result) {
             if(result != null) {
                 try {
-                    if (result.get("messageCode").equals(SUCCESSFUL_LOGIN)) {
+
+                    if (result.get("messageCode").equals(SUCCESSFUL_LOGIN) || result.get("messageCode").equals(FIRST_LOGIN)) {
                         gotoHomeActivity(result.get("token").toString());
                     }
                 } catch (JSONException e) {

@@ -29,9 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.widget.Toast.makeText;
 import static com.example.doneit.constants.Client.SHARED_LOGIN;
 
-public class HomeFragment extends Fragment implements TodoListAdapter.ItemClickListener {
+public class HomeFragment extends Fragment {
 
     private TodoListAdapter todoListAdapter;
     private View root;
@@ -70,70 +71,7 @@ public class HomeFragment extends Fragment implements TodoListAdapter.ItemClickL
 
             }
         });
-
-
-
-
-
-        //getTodoList();
         return root;
     }
 
-    private void getTodoList() {
-        SharedPreferences prefs = this.getActivity().getSharedPreferences(SHARED_LOGIN, MODE_PRIVATE);
-        String token = prefs.getString("token", "No name defined");
-        TodoListTask todoListTask = new TodoListTask(token);
-        todoListTask.execute();
-    }
-
-    private void setRecycleView(List<Todo> result) {
-        // data to populate the RecyclerView with
-        ArrayList<String> todos = new ArrayList<>();
-        for(Todo todo : result){
-            todos.add(todo.getTitle());
-        }
-
-        // set up the RecyclerView
-        RecyclerView recyclerView = root.findViewById(R.id.my_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        todoListAdapter = new TodoListAdapter(getActivity(), todos);
-        todoListAdapter.setClickListener(this);
-        recyclerView.setAdapter(todoListAdapter);
-    }
-
-    private class TodoListTask extends AsyncTask<Void,Void, List<Todo>> {
-
-        private String token;
-
-        TodoListTask(String token){
-            this.token = token;
-        }
-        @Override
-        protected List<Todo> doInBackground(Void... voids) {
-            TodoService todoService = new TodoService(token);
-            List<Todo> response = todoService.getAllTodo();
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(List<Todo> result){
-            Toast.makeText(getActivity().getApplicationContext(),"provaaaaa",Toast.LENGTH_LONG).show();
-            showResponse(result);
-            setRecycleView(result);
-
-        }
-    }
-    public void showResponse(List<Todo> response){
-        if(response != null) {
-            for (Todo todo : response) {
-                Log.d("response", "" + response);
-            }
-        }
-
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity(), "You clicked " + todoListAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-    }
 }

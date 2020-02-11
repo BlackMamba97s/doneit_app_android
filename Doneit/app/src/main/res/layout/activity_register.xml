@@ -85,14 +85,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.4" />
+                app:layout_constraintGuide_percent="0.43" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottom_logo_guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.34" />
+                app:layout_constraintGuide_percent="0.38" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_logo_guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.31" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_logo_guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.26" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_logo_guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.19" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottom_signin_guideline"
@@ -113,21 +134,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.47" />
+                app:layout_constraintGuide_percent="0.5" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/top_password_guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.53" />
+                app:layout_constraintGuide_percent="0.55" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottom_password_guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.6" />
+                app:layout_constraintGuide_percent="0.62" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/top_bottonsignin_guideline"
@@ -172,11 +193,11 @@
                 app:layout_constraintGuide_percent="0.91" />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/surname"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/edittext_sign"
-                android:hint="Username"
+                android:hint="Surname"
                 android:textAlignment="center"
                 android:inputType="textPersonName"
                 android:padding="8dp"
@@ -192,7 +213,7 @@
                 android:background="@drawable/edittext_sign"
                 android:hint="Password"
                 android:textAlignment="center"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_password_guideline"
                 app:layout_constraintEnd_toStartOf="@+id/vertical_right"
@@ -241,11 +262,12 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/top_username_guideline"
+                app:layout_constraintBottom_toTopOf="@+id/top_logo_guideline"
                 app:layout_constraintEnd_toStartOf="@+id/outer_vertical_right_guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/outer_vertical_left_guideline"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/imageedit_1_4130512871" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -261,6 +283,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.94" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/edittext_sign"
+                android:hint="Name"
+                android:textAlignment="center"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_logo_guideline"
+                app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+                app:layout_constraintStart_toStartOf="@+id/vertical_left"
+                app:layout_constraintTop_toTopOf="@+id/bottom_logo_guideline2" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/edittext_sign"
+                android:hint="Email"
+                android:textAlignment="center"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_logo_guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+                app:layout_constraintStart_toStartOf="@+id/vertical_left"
+                app:layout_constraintTop_toTopOf="@+id/bottom_logo_guideline4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

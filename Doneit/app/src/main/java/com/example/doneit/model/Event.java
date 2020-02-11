@@ -5,19 +5,22 @@ import java.util.Date;
 public class Event {
 
     private Long id;
+    private Long placeId;
     private String title;
     private String description;
+    private String place;
     private Date publishedDate;
-
     private User user;
 
     public Event(){
 
     }
 
-    public Event(String title, String description){
+    public Event(String title, String description, String place, Date publishedDate){
         this.title = title;
         this.description = description;
+        this.place = place;
+        this.publishedDate = publishedDate;
     }
 
     public Long getId() {
@@ -69,5 +72,21 @@ public class Event {
                 ", publishedDate=" + publishedDate +
                 ", user=" + user +
                 '}';
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public Long getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(Long placeId) {
+        this.placeId = placeId;
     }
 }
