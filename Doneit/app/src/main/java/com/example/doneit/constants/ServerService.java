@@ -1,7 +1,7 @@
 package com.example.doneit.constants;
 
 public class ServerService {
-    public static final String SERVER_URL = "http://172.16.180.87:8080";
+    public static final String SERVER_URL = "https://sini-doneit-backend.herokuapp.com";
     public static final String AUTHENTICATE = "/authenticate-user";
     public static final String REGISTER_USER =  "/register-user";
     public static final String ALL_TODO_LIST = "/active-todo-list";

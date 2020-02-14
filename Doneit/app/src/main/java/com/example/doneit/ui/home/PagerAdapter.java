@@ -34,9 +34,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 EventsFragment tab2 = new EventsFragment();
                 return  tab2;
-            case 2:
-                MyProposeFragment tab3 = new MyProposeFragment();
-                return  tab3;
             default:
                 return null;
         }

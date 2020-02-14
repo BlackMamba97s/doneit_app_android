@@ -53,6 +53,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         String event = mEvents.get(position).getTitle();
         holder.titleTextView.setText(event);
+        holder.descriptionTextView.setText(mEvents.get(position).getDescription());
+        holder.cfuPriceTextView.setText( "6 CFU");
         holder.partecipateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,12 +76,16 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView titleTextView;
+        TextView descriptionTextView;
+        TextView cfuPriceTextView;
         Button partecipateEvent;
 
         ViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.card_title);
             partecipateEvent = itemView.findViewById(R.id.partecipate);
+            descriptionTextView = itemView.findViewById(R.id.card_description);
+            cfuPriceTextView = itemView.findViewById(R.id.owner);
         }
 
 

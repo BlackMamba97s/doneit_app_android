@@ -41,7 +41,7 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.proposal_card_row, parent, false);
+        View view = mInflater.inflate(R.layout.todo_list_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,6 +51,7 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
         String todo_title = mTodos.get(position).getTitle();
         holder.titleTextView.setText(todo_title);
         holder.descriptionTextView.setText(mTodos.get(position).getDescription());
+        holder.cfuTextView.setText(Integer.toString(mTodos.get(position).getCategory().getCfuPrice())+ " CFU");
         holder.validateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,13 +76,15 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
         Button validateTodo;
         TextView titleTextView;
         TextView descriptionTextView;
+        TextView cfuTextView;
 
 
         ViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.card_title);
             descriptionTextView = itemView.findViewById(R.id.card_description);
-            validateTodo = itemView.findViewById(R.id.validate_todo);
+            validateTodo = itemView.findViewById(R.id.partecipate);
+            cfuTextView = itemView.findViewById(R.id.owner);
         }
 
     }
@@ -101,7 +104,7 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
             AddPartecipationService addPartecipationService = new AddPartecipationService(token);
             JSONObject jsonResponseTodo = null;
             try {
-                jsonResponseTodo = addPartecipationService.makeRequestTodo(todo);
+                    jsonResponseTodo = addPartecipationService.makeRequestTodo(todo);
             } catch (IOException e) {
                 e.printStackTrace();
             }

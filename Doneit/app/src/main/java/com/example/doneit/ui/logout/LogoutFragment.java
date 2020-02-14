@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.doneit.CreateTodoActivity;
 import com.example.doneit.MainActivity;
+import com.example.doneit.R;
 
 import static com.example.doneit.constants.Client.SHARED_LOGIN;
 
@@ -29,6 +30,10 @@ public class LogoutFragment extends Fragment {
         preferences.edit().remove("token").commit();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        //Fragment fragment = getChildFragmentManager().findFragmentById(R.id.)
     }
 
 }

@@ -51,6 +51,7 @@ public class ProposeListAdapter extends RecyclerView.Adapter<ProposeListAdapter.
         String todo_title = mTodos.get(position).getTitle();
         holder.titleTextView.setText(todo_title);
         holder.descriptionTextView.setText(mTodos.get(position).getDescription());
+        holder.cfuTextView.setText(Integer.toString(mTodos.get(position).getCategory().getCfuPrice())+ " CFU");
         holder.convalidateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +77,7 @@ public class ProposeListAdapter extends RecyclerView.Adapter<ProposeListAdapter.
         Button convalidateTodo;
         TextView titleTextView;
         TextView descriptionTextView;
+        TextView cfuTextView;
 
 
         ViewHolder(View itemView) {
@@ -83,6 +85,7 @@ public class ProposeListAdapter extends RecyclerView.Adapter<ProposeListAdapter.
             titleTextView = itemView.findViewById(R.id.card_title);
             descriptionTextView = itemView.findViewById(R.id.card_description);
             convalidateTodo = itemView.findViewById(R.id.validate_todo);
+            cfuTextView = itemView.findViewById(R.id.owner);
         }
 
     }

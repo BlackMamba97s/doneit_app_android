@@ -1,20 +1,20 @@
 package com.example.doneit.ui.creation.todo_creation;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.doneit.R;
 import com.example.doneit.model.Category;
@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +40,7 @@ public class CreateTodoFragment extends Fragment {
 
     private SharedPreferences prefs;
     private View root;
+    private Spinner categorySpinner;
     private String formattedDate;
     Button addTodo;
 
@@ -48,6 +50,9 @@ public class CreateTodoFragment extends Fragment {
         root = inflater.inflate(R.layout.todo_creation, container, false);
         prefs = getActivity().getSharedPreferences(SHARED_LOGIN, MODE_PRIVATE);
         addTodo = root.findViewById(R.id.create_todo);
+        String token = prefs.getString("token", "No name defined");
+        GetCategoriesTask getCategoriesTask = new GetCategoriesTask(token);
+        getCategoriesTask.execute();
         addTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,15 +63,6 @@ public class CreateTodoFragment extends Fragment {
         return root;
     }
 
-    private String getCurrentDate() {
-        Date date = new Date();
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(df.format(c));
-        return formattedDate = df.format(c);
-    }
-
-
     private void sendTodoCreationRequest() {
 
         // get all information i need from form, like title description and the token from shared memory
@@ -75,31 +71,60 @@ public class CreateTodoFragment extends Fragment {
         TextView descriptionText = root.findViewById(R.id.descriptionText);
         String title = todoTitle.getText().toString();
         String description = descriptionText.getText().toString();
+        Category category = (Category)categorySpinner.getSelectedItem();
 
         // start asynctask
-        CreateTodoTask createTodoTask = new CreateTodoTask(title,description,token);
+        CreateTodoTask createTodoTask = new CreateTodoTask(title,description,category,token);
         createTodoTask.execute();
     }
+
+
+    public class GetCategoriesTask extends AsyncTask<Void,Void, List<String>> {
+
+
+        private String token;
+
+        public GetCategoriesTask(String token){
+            this.token = token;
+        }
+
+        @SuppressLint("WrongThread")
+        @Override
+        protected List<String> doInBackground(Void... voids){
+            GetAllCategoriesService getAllCategoriesService = new GetAllCategoriesService(token);
+            List<Category> categories= getAllCategoriesService.getAllCategories();
+            List<String> spinnerList = new ArrayList<>();
+            for(Category category : categories){
+                spinnerList.add(category.getName() + " (" + category.getCfuPrice() + " CFU)");
+            }
+
+            return spinnerList;
+        }
+        @Override
+        protected void onPostExecute(List<String> result){
+            //Toast.makeText(getActivity().getApplicationContext(),"provaaaaa",Toast.LENGTH_LONG).show();
+            setSpinner(result);
+        }
+    }
+
 
     public class CreateTodoTask extends AsyncTask<Void,Void, JSONObject> {
 
         private String title;
         private String description;
+        private Category category;
         private String token;
 
-        public CreateTodoTask(String title, String description, String token){
+        public CreateTodoTask(String title, String description,Category category,String token){
             this.title = title;
             this.description = description;
+            this.category = category;
             this.token = token;
         }
 
         @Override
         protected JSONObject doInBackground(Void... voids){
-            GetAllCategoriesService getAllCategoriesService = new GetAllCategoriesService(token);
-            List<Category> categories= getAllCategoriesService.getAllCategories();
-
-
-            Todo todo = new Todo(title,description,categories.get(0));
+            Todo todo = new Todo(title,description,category);
             CreateTodoService createTodoService = new CreateTodoService(token);
             JSONObject jsonResponseTodo = createTodoService.makeCreateTodoRequest(todo);
 
@@ -123,6 +148,16 @@ public class CreateTodoFragment extends Fragment {
             }
         }
     }
+
+
+    public void setSpinner(List<String> spinnerList){
+        categorySpinner = root.findViewById(R.id.categorySpinner);
+        ArrayAdapter<String> adp1 = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1, spinnerList);
+        adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adp1);
+    }
+
 
     public void showFragmentToast(String toast){
         Toast.makeText(getActivity().getApplicationContext(), toast, Toast.LENGTH_LONG).show();

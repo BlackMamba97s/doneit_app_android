@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.doneit.ui.creation.event_creation.CreateEventFragment;
 import com.example.doneit.ui.creation.todo_creation.CreateTodoFragment;
+import com.example.doneit.ui.my_propose.MyProposeFragment;
 import com.example.doneit.ui.my_todos.accepted.AcceptedTodoFragment;
 import com.example.doneit.ui.my_todos.completed.CompletedTodoFragment;
 import com.example.doneit.ui.my_todos.pending.PendingTodoFragment;
@@ -35,7 +36,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return  tab1;
 
             case 1:
-                AcceptedTodoFragment tab2 = new AcceptedTodoFragment();
+                MyProposeFragment tab2 = new MyProposeFragment();
                 return  tab2;
             case 2:
                 CompletedTodoFragment tab3 = new CompletedTodoFragment();

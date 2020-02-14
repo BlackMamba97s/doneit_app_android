@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.doneit.R;
+import com.example.doneit.model.Category;
 import com.example.doneit.model.Todo;
 import com.example.doneit.service.AddPartecipationService;
+import com.example.doneit.service.GetAllCategoriesService;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +56,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         holder.titleTextView.setText(todo_title);
         holder.descriptionTextView.setText(mTodos.get(position).getDescription());
         holder.ownerTextView.setText(Integer.toString(mTodos.get(position).getCategory().getCfuPrice()) + " CFU");
+
         holder.partecipateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +93,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         }
 
     }
+
+
 
     public class AddPartecipationTodo extends AsyncTask<Void,Void, JSONObject> {
 
