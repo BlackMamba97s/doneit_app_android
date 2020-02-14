@@ -5,7 +5,7 @@ import java.util.Date;
 public class Event {
 
     private Long id;
-    private Long placeId;
+    private String placeId;
     private String title;
     private String description;
     private String place;
@@ -82,11 +82,11 @@ public class Event {
         this.place = place;
     }
 
-    public Long getPlaceId() {
+    public String getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(Long placeId) {
+    public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
 }

@@ -24,8 +24,8 @@
         <activity android:name=".CreateTodoActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity"
-            android:noHistory="true">
-            >
+            android:noHistory="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

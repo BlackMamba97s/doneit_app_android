@@ -79,7 +79,7 @@ public class CreateTodoFragment extends Fragment {
     }
 
 
-    public class GetCategoriesTask extends AsyncTask<Void,Void, List<String>> {
+    public class GetCategoriesTask extends AsyncTask<Void,Void, List<Category>> {
 
 
         private String token;
@@ -90,18 +90,15 @@ public class CreateTodoFragment extends Fragment {
 
         @SuppressLint("WrongThread")
         @Override
-        protected List<String> doInBackground(Void... voids){
+        protected List<Category> doInBackground(Void... voids){
             GetAllCategoriesService getAllCategoriesService = new GetAllCategoriesService(token);
             List<Category> categories= getAllCategoriesService.getAllCategories();
-            List<String> spinnerList = new ArrayList<>();
-            for(Category category : categories){
-                spinnerList.add(category.getName() + " (" + category.getCfuPrice() + " CFU)");
-            }
 
-            return spinnerList;
+
+            return categories;
         }
         @Override
-        protected void onPostExecute(List<String> result){
+        protected void onPostExecute(List<Category> result){
             //Toast.makeText(getActivity().getApplicationContext(),"provaaaaa",Toast.LENGTH_LONG).show();
             setSpinner(result);
         }
@@ -150,9 +147,9 @@ public class CreateTodoFragment extends Fragment {
     }
 
 
-    public void setSpinner(List<String> spinnerList){
+    public void setSpinner(List<Category> spinnerList){
         categorySpinner = root.findViewById(R.id.categorySpinner);
-        ArrayAdapter<String> adp1 = new ArrayAdapter<>(getActivity(),
+        ArrayAdapter<Category> adp1 = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, spinnerList);
         adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adp1);

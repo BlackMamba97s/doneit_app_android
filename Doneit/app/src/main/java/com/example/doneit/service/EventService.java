@@ -1,6 +1,8 @@
 package com.example.doneit.service;
 
 
+import android.util.Log;
+
 import com.example.doneit.model.Event;
 import com.example.doneit.model.Todo;
 import com.google.gson.Gson;
@@ -47,7 +49,9 @@ public class EventService {
             Response response = client.newCall(request).execute();
             if(response.isSuccessful()){
                 String jsonResponse = response.body().string();
+                Log.d("prova", jsonResponse);
                 Type listType = new TypeToken<List<Event>>() {}.getType();
+
                 List<Event> eventList = new Gson().fromJson(jsonResponse, listType);
                 return eventList;
             }
