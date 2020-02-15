@@ -37,6 +37,10 @@ public class MyProposeFragment extends Fragment {
         root = inflater.inflate(R.layout.mypropose_fragment, container, false);
         prefs = this.getActivity().getSharedPreferences(SHARED_LOGIN, MODE_PRIVATE);
         getProposeList(); // get Todo list form server
+
+
+
+
         return root;
     }
 

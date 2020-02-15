@@ -58,7 +58,7 @@ public class PublishedTodoFragment extends Fragment {
         }
         @Override
         protected List<Todo> doInBackground(Void... voids) {
-            MyTodoService myTodoService = new MyTodoService(token, "published");
+            MyTodoService myTodoService = new MyTodoService(token, "accepted");
             List<Todo> response = myTodoService.getMyTodo();
             return response;
         }

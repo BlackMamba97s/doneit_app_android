@@ -1,6 +1,7 @@
 package com.example.doneit.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.doneit.ConvalidationActivity;
 import com.example.doneit.R;
 import com.example.doneit.model.Todo;
 import com.example.doneit.service.AddPartecipationService;
@@ -41,7 +44,8 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.todo_list_row, parent, false);
+        View view = mInflater.inflate(R.layout.proposal_card_row, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -55,10 +59,17 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
         holder.validateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(), mTodos.get(position).toString(),  Toast.LENGTH_SHORT).show();
-                String token = prefs.getString("token", "No name defined");
-                /*AddPartecipationTodo addPartecipationTodo = new AddPartecipationTodo(mTodos.get(position), token);
-                addPartecipationTodo.execute();*/
+
+                Log.d("SHISH", "Click");
+                Long id = mTodos.get(position).getId();
+                String title = mTodos.get(position).getTitle();
+                Intent intent = new Intent(getApplicationContext(), ConvalidationActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("todoName", title);
+                intent.putExtra("todoId", id);
+                intent.putExtra("Owner", true);
+                getApplicationContext().startActivity(intent);
+
             }
         });
 
@@ -83,7 +94,7 @@ public class MyTodoAdapter extends RecyclerView.Adapter<MyTodoAdapter.ViewHolder
             super(itemView);
             titleTextView = itemView.findViewById(R.id.card_title);
             descriptionTextView = itemView.findViewById(R.id.card_description);
-            validateTodo = itemView.findViewById(R.id.partecipate);
+            validateTodo = itemView.findViewById(R.id.validate_todo);
             cfuTextView = itemView.findViewById(R.id.owner);
         }
 

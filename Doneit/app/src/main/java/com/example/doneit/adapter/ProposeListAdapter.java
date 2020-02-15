@@ -1,6 +1,7 @@
 package com.example.doneit.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,15 +12,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.doneit.ConvalidationActivity;
 import com.example.doneit.R;
 import com.example.doneit.model.Todo;
 import com.example.doneit.service.AddPartecipationService;
+import com.facebook.share.Share;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.doneit.constants.Client.SHARED_LOGIN;
 import static com.example.doneit.constants.MessageCode.PROPOSAL_CREATED;
 import static com.example.doneit.constants.MessageCode.TODO_CREATED;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -55,11 +62,16 @@ public class ProposeListAdapter extends RecyclerView.Adapter<ProposeListAdapter.
         holder.convalidateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(), mTodos.get(position).toString(),  Toast.LENGTH_SHORT).show();
-                /*
-                String token = prefs.getString("token", "No name defined");
-                AddPartecipationTodo addPartecipationTodo = new AddPartecipationTodo(mTodos.get(position), token);
-                addPartecipationTodo.execute();*/
+                Long id = mTodos.get(position).getId();
+                String title = mTodos.get(position).getTitle();
+                Intent intent = new Intent(getApplicationContext(), ConvalidationActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("todoName", title);
+                intent.putExtra("todoId", id);
+                intent.putExtra("Owner", false);
+
+
+                getApplicationContext().startActivity(intent);
             }
         });
 
