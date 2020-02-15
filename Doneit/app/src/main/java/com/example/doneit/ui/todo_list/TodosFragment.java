@@ -31,7 +31,6 @@ public class TodosFragment extends Fragment {
 
     private View root;
     private TodoListAdapter todoListAdapter;
-    ArrayList<Todo> todoMemory;
     SharedPreferences prefs;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -69,7 +68,6 @@ public class TodosFragment extends Fragment {
         protected void onPostExecute(List<Todo> result){
             //Toast.makeText(getActivity().getApplicationContext(),"provaaaaa",Toast.LENGTH_LONG).show();
             showResponse(result);
-            todoMemory = (ArrayList<Todo>) result;
             setRecycleView(result);
 
         }

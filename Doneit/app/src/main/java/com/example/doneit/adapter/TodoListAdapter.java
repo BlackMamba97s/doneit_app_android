@@ -2,6 +2,7 @@ package com.example.doneit.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,12 +18,15 @@ import com.example.doneit.model.Category;
 import com.example.doneit.model.Todo;
 import com.example.doneit.service.AddPartecipationService;
 import com.example.doneit.service.GetAllCategoriesService;
+import com.example.doneit.service.ImageService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.doneit.constants.MessageCode.PROPOSAL_CREATED;
 import static com.example.doneit.constants.MessageCode.TODO_CREATED;
@@ -55,8 +59,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         String todo_title = mTodos.get(position).getTitle();
         holder.titleTextView.setText(todo_title);
         holder.descriptionTextView.setText(mTodos.get(position).getDescription());
-        holder.ownerTextView.setText(Integer.toString(mTodos.get(position).getCategory().getCfuPrice()) + " CFU");
-
+        holder.ownerTextView.setText(mTodos.get(position).getCategory().getCfuPrice() + " CFU");
+        //holder.profileImage.setImageBitmap(getProfilePicture(mTodos.get(position).getUser().getUsername()));
         holder.partecipateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +72,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         });
 
     }
+
 
     // total number of rows
     @Override
@@ -82,6 +87,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         TextView titleTextView;
         TextView descriptionTextView;
         TextView ownerTextView;
+        CircleImageView profileImage;
 
 
         ViewHolder(View itemView) {
@@ -90,11 +96,35 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             descriptionTextView = itemView.findViewById(R.id.card_description);
             partecipateTodo = itemView.findViewById(R.id.partecipate);
             ownerTextView = itemView.findViewById(R.id.owner);
+            profileImage = itemView.findViewById(R.id.profile_image_todo);
         }
 
     }
 
+    private class ImageTask extends AsyncTask<Void,Void, String> {
 
+        private String token;
+        private String username;
+
+        ImageTask(String username, String token) {
+            this.username = username;
+            this.token = token;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            ImageService imageService = new ImageService();
+            String imageBase64 = null;
+            try {
+                imageBase64 = imageService.getImage(username, token);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("HomeActivity", imageBase64);
+            return imageBase64;
+
+        }
+    }
 
     public class AddPartecipationTodo extends AsyncTask<Void,Void, JSONObject> {
 
@@ -135,6 +165,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
             }
         }
     }
+
 
     public void showFragmentToast(String toast){
         Log.d("prova", " sono entrato qua");
