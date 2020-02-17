@@ -22,18 +22,20 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".CreateTodoActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+                  android:screenOrientation="portrait"
+                  android:noHistory="true"/>
         <activity
             android:name=".MainActivity"
             android:noHistory="true"
-            android:windowSoftInputMode="adjustResize">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

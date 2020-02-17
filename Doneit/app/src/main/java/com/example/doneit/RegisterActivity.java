@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"prova",Toast.LENGTH_LONG).show();
-                goToLogin(v);
+                goToLogin();
             }
         });
     }
@@ -92,13 +92,21 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             showToast(result);
+            if(result.equals("REGISTRAZIONE AVVENUTA CON SUCCESSO")){
+                goToLogin();
+                finish();
+            }
+
         }
 
     }
 
-    public void goToLogin(View view){
+    public void goToLogin(){
         Intent intent = new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+        finish();
     }
 
 }
