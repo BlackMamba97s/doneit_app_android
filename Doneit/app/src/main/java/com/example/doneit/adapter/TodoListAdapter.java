@@ -71,7 +71,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
         holder.partecipateTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(true/*!isOwner(position, username))*/){
+                if(isOwner(position, username)){
                     //Toast.makeText(v.getContext(), mTodos.get(position).toString(),  Toast.LENGTH_SHORT).show();
                     String token = prefs.getString("token", "No name defined");
                     checkAsyncStatus(position, token);
